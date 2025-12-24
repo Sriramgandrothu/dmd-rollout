@@ -1,5 +1,5 @@
 using { MigrationService } from '../srv/migration-service';
-using { sap.common } from '@sap/cds/common';
+// using { sap.common } from '@sap/cds/common';
 
 ////////////////////////////////////////////////////////////////////////////
 //
