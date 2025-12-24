@@ -1,4 +1,4 @@
-using { MigrationService } from '../srv/migration-service';
+using {MigrationService} from '../srv/migration-service';
 // using { sap.common } from '@sap/cds/common';
 
 ////////////////////////////////////////////////////////////////////////////
@@ -6,24 +6,49 @@ using { MigrationService } from '../srv/migration-service';
 // Rollout List
 //
 annotate MigrationService.RolloutOverview with @(
-  Common.SemanticKey : [RolloutName],
-  UI : {
+  Common.SemanticKey: [RolloutName],
+  UI                : {
 
-    SelectionFields : [
+    SelectionFields: [
       RolloutName,
       Status,
-      CurrentMocks        // Mock Name (free search)
+      CurrentMocks // Mock Name (free search)
     ],
 
-    LineItem : [
-      { Value: RolloutName,   Label: 'Rollout Name' },
-      { Value: Status,        Label: 'Status' },
-      { Value: PlannedDate,   Label: 'Planned Date' },
-      { Value: ActualDate,    Label: 'Actual Date' },
-      { Value: Reason,        Label: 'Reason' },
-      { Value: TotalMocks,    Label: 'Total Mocks' },
-      { Value: CurrentMocks,  Label: 'Current Mocks' },
-      { Value: TimeStamp,     Label: 'Last Modified At' }
+    LineItem       : [
+      {
+        Value: RolloutName,
+        Label: 'Rollout Name'
+      },
+      {
+        Value      : Status,
+        Label      : 'Status',
+        Criticality: StatusCriticality
+      },
+      {
+        Value: PlannedDate,
+        Label: 'Planned Date'
+      },
+      {
+        Value: ActualDate,
+        Label: 'Actual Date'
+      },
+      {
+        Value: Reason,
+        Label: 'Reason'
+      },
+      {
+        Value: TotalMocks,
+        Label: 'Total Mocks'
+      },
+      {
+        Value: CurrentMocks,
+        Label: 'Current Mocks'
+      },
+      {
+        Value: TimeStamp,
+        Label: 'Last Modified At'
+      }
     ]
   }
 );
@@ -36,31 +61,27 @@ annotate MigrationService.RolloutOverview with @(
 annotate MigrationService.RolloutOverview with {
 
   // Rollout Name → Dropdown (Value Help)
-  RolloutName @Common.ValueList : {
-    CollectionPath : 'RolloutOverview',
-    Parameters : [
-      {
-        $Type             : 'Common.ValueListParameterInOut',
-        LocalDataProperty : RolloutName,
-        ValueListProperty : 'RolloutName'
-      }
-    ]
+  RolloutName  @Common.ValueList           : {
+    CollectionPath: 'RolloutOverview',
+    Parameters    : [{
+      $Type            : 'Common.ValueListParameterInOut',
+      LocalDataProperty: RolloutName,
+      ValueListProperty: 'RolloutName'
+    }]
   };
 
   // Status → Dropdown (Enum auto-handled)
-  Status @Common.ValueList : {
-    CollectionPath : 'RolloutOverview',
-    Parameters : [
-      {
-        $Type             : 'Common.ValueListParameterInOut',
-        LocalDataProperty : Status,
-        ValueListProperty : 'Status'
-      }
-    ]
+  Status       @Common.ValueList           : {
+    CollectionPath: 'RolloutOverview',
+    Parameters    : [{
+      $Type            : 'Common.ValueListParameterInOut',
+      LocalDataProperty: Status,
+      ValueListProperty: 'Status'
+    }]
   };
 
   // Mock Name (CurrentMocks) → Free text search
-  CurrentMocks @Search.defaultSearchElement : true;
+  CurrentMocks @Search.defaultSearchElement: true;
 };
 
 ////////////////////////////////////////////////////////////////////////////
