@@ -1,6 +1,21 @@
 using { MigrationService } from '../srv/migration-service';
 // using { sap.common } from '@sap/cds/common';
 
+annotate MigrationService.RolloutOverview with @UI.HeaderInfo: {
+  TypeName       : 'Rollout',
+  TypeNamePlural : 'Rollouts',
+  Title          : { Value: RolloutName },
+  Description    : { Value: Status }
+};
+
+////////////////////////////////////////////////////////////////////////////
+//
+// FORCE HEADER VISIBILITY (IMPORTANT)
+//
+annotate MigrationService.RolloutOverview with @UI.PresentationVariant: {
+  Visualizations: ['@UI.LineItem']
+};
+
 ////////////////////////////////////////////////////////////////////////////
 //
 // Rollout List
@@ -9,7 +24,7 @@ annotate MigrationService.RolloutOverview with @(
   Common.SemanticKey : [RolloutName],
   UI : {
 
-    SelectionFields : [
+    SelectionFields: [
       RolloutName,
       Status,
       CurrentMocks
@@ -55,38 +70,36 @@ annotate MigrationService.RolloutOverview with @(
 
 ////////////////////////////////////////////////////////////////////////////
 //
-// Filter behavior (CORRECTED)
+// Filter behavior
 //
 annotate MigrationService.RolloutOverview with {
 
-  // Rollout Name → Dropdown
+  // Rollout Name → Dropdown (Value Help)
   RolloutName
-    @Common.ValueList : {
-      CollectionPath : 'RolloutOverview',
-      Parameters : [
-        {
-          $Type             : 'Common.ValueListParameterInOut',
-          LocalDataProperty : RolloutName,
-          ValueListProperty : 'RolloutName'
-        }
-      ]
+    @Common.ValueList: {
+      CollectionPath: 'RolloutOverview',
+      Parameters    : [{
+        $Type            : 'Common.ValueListParameterInOut',
+        LocalDataProperty: RolloutName,
+        ValueListProperty: 'RolloutName'
+      }]
     }
-    @Common.Placeholder : 'Select Rollout';
+    @Common.Placeholder: 'Select Rollout';
 
-  // Status → Enum dropdown (EXPLICITLY ENABLED)
+  // Status → Enum dropdown
   Status
-    @Capabilities.FilterRestrictions.AllowedExpressions : ['MultiValue']
-    @Common.Placeholder : 'Select Status';
+    @Capabilities.FilterRestrictions.AllowedExpressions: ['MultiValue']
+    @Common.Placeholder                                : 'Select Status';
 
-  // CurrentMocks → Plain input field (NO F4)
+  // CurrentMocks → Plain input (NO F4 HELP)
   CurrentMocks
-    @Capabilities.FilterRestrictions.AllowedExpressions : ['SingleValue']
-    @Common.Placeholder : 'Search by Current Mock';
+    @Capabilities.FilterRestrictions.AllowedExpressions: ['SingleValue']
+    @Common.Placeholder                                : 'Search by Current Mock';
 };
 
 ////////////////////////////////////////////////////////////////////////////
 //
-// Disable global search
+// Disable Global Search
 //
 annotate MigrationService.RolloutOverview with @Capabilities.SearchRestrictions : {
   Searchable : false
