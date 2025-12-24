@@ -1,0 +1,35 @@
+namespace sap.capire.dmd_rollout;
+
+type WaveStatus : String enum {
+    YET_TO_START;
+    IN_PROGRESS;
+    COMPLETED;
+    ON_HOLD;
+}
+
+type RAG        : String enum {
+    R;
+    A;
+    G;
+}
+
+entity Rollouts {
+    key id                : Integer;
+        waveId            : Integer;
+        name              : String(30);
+        status            : WaveStatus;
+        rag               : RAG;
+        completionPercent : Integer;
+        startDate         : Date;
+        endDate           : Date;
+        actualStartDate   : Date;
+        actualEndDate     : Date;
+        golivePlannedDate : Date;
+        goliveEndDate     : Date;
+        reason            : String(100);
+        openblockers      : String(100);
+        createdAt         : Timestamp;
+        createdBy         : String(12);
+        lastModifiedAt    : Timestamp;
+        lastModifiedBy    : String(12);
+}
