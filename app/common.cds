@@ -1,18 +1,18 @@
-using {MigrationService} from '../srv/migration-service';
-// using { sap.common } from '@sap/cds/common';
+using { MigrationService } from '../srv/migration-service';
+using { sap.common } from '@sap/cds/common';
 
 ////////////////////////////////////////////////////////////////////////////
 //
 // Rollout List
 //
 annotate MigrationService.RolloutOverview with @(
-  Common.SemanticKey: [RolloutName],
-  UI                : {
+  Common.SemanticKey : [RolloutName],
+  UI : {
 
-    SelectionFields: [
+    SelectionFields : [
       RolloutName,
       Status,
-      CurrentMocks // Mock Name (free search)
+      CurrentMocks
     ],
 
     LineItem       : [
@@ -55,33 +55,41 @@ annotate MigrationService.RolloutOverview with @(
 
 ////////////////////////////////////////////////////////////////////////////
 //
-// Filter behavior
+// Filter behavior (CORRECTED)
 //
-
 annotate MigrationService.RolloutOverview with {
 
-  // Rollout Name → Dropdown (Value Help)
-  RolloutName  @Common.ValueList           : {
-    CollectionPath: 'RolloutOverview',
-    Parameters    : [{
-      $Type            : 'Common.ValueListParameterInOut',
-      LocalDataProperty: RolloutName,
-      ValueListProperty: 'RolloutName'
-    }]
-  };
+  // Rollout Name → Dropdown
+  RolloutName
+    @Common.ValueList : {
+      CollectionPath : 'RolloutOverview',
+      Parameters : [
+        {
+          $Type             : 'Common.ValueListParameterInOut',
+          LocalDataProperty : RolloutName,
+          ValueListProperty : 'RolloutName'
+        }
+      ]
+    }
+    @Common.Placeholder : 'Select Rollout';
 
-  // Status → Dropdown (Enum auto-handled)
-  Status       @Common.ValueList           : {
-    CollectionPath: 'RolloutOverview',
-    Parameters    : [{
-      $Type            : 'Common.ValueListParameterInOut',
-      LocalDataProperty: Status,
-      ValueListProperty: 'Status'
-    }]
-  };
+  // Status → Enum dropdown (EXPLICITLY ENABLED)
+  Status
+    @Capabilities.FilterRestrictions.AllowedExpressions : ['MultiValue']
+    @Common.Placeholder : 'Select Status';
 
-  // Mock Name (CurrentMocks) → Free text search
-  CurrentMocks @Search.defaultSearchElement: true;
+  // CurrentMocks → Plain input field (NO F4)
+  CurrentMocks
+    @Capabilities.FilterRestrictions.AllowedExpressions : ['SingleValue']
+    @Common.Placeholder : 'Search by Current Mock';
+};
+
+////////////////////////////////////////////////////////////////////////////
+//
+// Disable global search
+//
+annotate MigrationService.RolloutOverview with @Capabilities.SearchRestrictions : {
+  Searchable : false
 };
 
 ////////////////////////////////////////////////////////////////////////////
