@@ -4,15 +4,15 @@
   "description": "A simple CAP project.",
   "dependencies": {
     "@sap/cds": "^9.6.1",
-    "@cap-js/sqlite": "^2",
     "express": "^4"
   },
   "devDependencies": {
     "@cap-js/cds-typer": "^0.38.0",
+    "@cap-js/sqlite": "^2",
     "@sap/cds-dk": "^9.6.0"
   },
   "scripts": {
-    "start": "npx cds run"
+    "start": "cds-serve"
   },
   "private": true
 }
