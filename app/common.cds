@@ -1,28 +1,26 @@
-using { MigrationService } from '../srv/migration-service';
+using {MigrationService} from '../srv/migration-service';
 // using { sap.common } from '@sap/cds/common';
 
 annotate MigrationService.RolloutOverview with @UI.HeaderInfo: {
-  TypeName       : 'Rollout',
-  TypeNamePlural : 'Rollouts',
-  Title          : { Value: RolloutName },
-  Description    : { Value: Status }
+  TypeName      : 'Rollout',
+  TypeNamePlural: 'Rollouts',
+  Title         : {Value: RolloutName},
+  Description   : {Value: Status}
 };
 
 ////////////////////////////////////////////////////////////////////////////
 //
 // FORCE HEADER VISIBILITY (IMPORTANT)
 //
-annotate MigrationService.RolloutOverview with @UI.PresentationVariant: {
-  Visualizations: ['@UI.LineItem']
-};
+annotate MigrationService.RolloutOverview with @UI.PresentationVariant: {Visualizations: ['@UI.LineItem']};
 
 ////////////////////////////////////////////////////////////////////////////
 //
 // Rollout List
 //
 annotate MigrationService.RolloutOverview with @(
-  Common.SemanticKey : [RolloutName],
-  UI : {
+  Common.SemanticKey: [RolloutName],
+  UI                : {
 
     SelectionFields: [
       RolloutName,
@@ -76,34 +74,42 @@ annotate MigrationService.RolloutOverview with {
 
   // Rollout Name → Dropdown (Value Help)
   RolloutName
-    @Common.ValueList: {
-      CollectionPath: 'RolloutOverview',
-      Parameters    : [{
-        $Type            : 'Common.ValueListParameterInOut',
-        LocalDataProperty: RolloutName,
-        ValueListProperty: 'RolloutName'
-      }]
-    }
-    @Common.Placeholder: 'Select Rollout';
+  @Common.ValueList                                  : {
+    CollectionPath: 'RolloutOverview',
+    Parameters    : [{
+      $Type            : 'Common.ValueListParameterInOut',
+      LocalDataProperty: RolloutName,
+      ValueListProperty: 'RolloutName'
+    }]
+  }
+  @Common.Placeholder                                : 'Select Rollout';
 
   // Status → Enum dropdown
+  // Status → Value Help Dropdown
   Status
-    @Capabilities.FilterRestrictions.AllowedExpressions: ['MultiValue']
-    @Common.Placeholder                                : 'Select Status';
+  @Common.ValueList                                  : {
+    CollectionPath: 'RolloutStatus',
+    Parameters    : [{
+      $Type            : 'Common.ValueListParameterInOut',
+      LocalDataProperty: Status,
+      ValueListProperty: 'Status'
+    }]
+  }
+  @Capabilities.FilterRestrictions.AllowedExpressions: ['MultiValue']
+  @Common.Placeholder                                : 'Select Status';
+
 
   // CurrentMocks → Plain input (NO F4 HELP)
   CurrentMocks
-    @Capabilities.FilterRestrictions.AllowedExpressions: ['SingleValue']
-    @Common.Placeholder                                : 'Search by Current Mock';
+  @Capabilities.FilterRestrictions.AllowedExpressions: ['SingleValue']
+  @Common.Placeholder                                : 'Search by Current Mock';
 };
 
 ////////////////////////////////////////////////////////////////////////////
 //
 // Disable Global Search
 //
-annotate MigrationService.RolloutOverview with @Capabilities.SearchRestrictions : {
-  Searchable : false
-};
+annotate MigrationService.RolloutOverview with @Capabilities.SearchRestrictions: {Searchable: false};
 
 ////////////////////////////////////////////////////////////////////////////
 //

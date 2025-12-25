@@ -1,12 +1,12 @@
-id,waveId,name,status,rag,completionPercent,startDate,endDate,actualStartDate,actualEndDate,golivePlannedDate,goliveEndDate,reason,openblockers,createdAt,createdBy,lastModifiedAt,lastModifiedBy
-200001,1,Singapore,COMPLETED,G,100,2023-01-01,2023-03-31,2023-01-02,2023-03-25,2023-04-01,2023-04-01,Successfully completed rollout,None,2022-12-01T10:00:00.000Z,system,2023-04-01T10:00:00.000Z,system
-200002,1,Hong Kong,COMPLETED,G,100,2023-02-01,2023-04-30,2023-02-03,2023-04-28,2023-05-01,2023-05-01,Completed as planned,None,2022-12-10T10:00:00.000Z,system,2023-05-01T10:00:00.000Z,system
-200003,2,Taiwan,IN_PROGRESS,A,75,2023-06-01,2023-09-30,2023-06-05,,2023-10-01,,Data validation in progress,Legacy data cleanup,2023-05-01T10:00:00.000Z,system,2023-08-15T10:00:00.000Z,system
-200004,2,Japan,IN_PROGRESS,A,65,2023-07-01,2023-10-31,2023-07-04,,2023-11-01,,Interface testing ongoing,External vendor dependency,2023-06-01T10:00:00.000Z,system,2023-08-20T10:00:00.000Z,system
-200005,3,Vietnam,ON_HOLD,R,40,2023-05-01,2023-08-31,2023-05-03,,2023-09-01,,Paused due to infra issues,Network readiness pending,2023-04-01T10:00:00.000Z,system,2023-07-10T10:00:00.000Z,system
-200006,3,Combodia,IN_PROGRESS,G,80,2023-06-15,2023-09-15,2023-06-18,,2023-09-20,,UAT almost complete,None,2023-05-10T10:00:00.000Z,system,2023-08-18T10:00:00.000Z,system
-200007,4,Laos,YET_TO_START,G,0,2023-10-01,2023-12-31,, ,2024-01-05,,Resources not onboarded,None,2023-08-01T10:00:00.000Z,system,2023-08-01T10:00:00.000Z,system
-200008,4,Myanmar,ON_HOLD,R,30,2023-04-01,2023-07-31,2023-04-05,,2023-08-05,,Regulatory approval pending,Compliance clearance,2023-03-01T10:00:00.000Z,system,2023-06-30T10:00:00.000Z,system
-200009,5,Malaysia,IN_PROGRESS,G,85,2023-05-15,2023-08-15,2023-05-18,,2023-08-20,,Final migration running,None,2023-04-10T10:00:00.000Z,system,2023-08-10T10:00:00.000Z,system
-200010,5,Thailand,COMPLETED,G,100,2023-03-01,2023-05-31,2023-03-02,2023-05-28,2023-06-01,2023-06-01,Smooth rollout,None,2023-02-01T10:00:00.000Z,system,2023-06-01T10:00:00.000Z,system
-200011,6,Indonesia,IN_PROGRESS,A,55,2023-08-01,2023-11-30,2023-08-03,,2023-12-05,,Core modules deployment,System performance tuning,2023-07-01T10:00:00.000Z,system,2023-08-22T10:00:00.000Z,system
+id,waveId,name,status,rag,completionPercent,startDate,endDate,actualStartDate,actualEndDate,golivePlannedDate,goliveEndDate,reason,openblockers,createdAt,createdBy,lastModifiedAt,lastModifiedBy,totalMocks,currentmock
+200001,1,Singapore,COMPLETED,G,100,2025-01-05,2025-03-31,2025-01-07,2025-03-25,2025-04-01,2025-04-01,Successful production cutover,None,2024-12-01T10:00:00.000Z,system,2025-04-01T09:30:00.000Z,system,5,CUTOVER
+200002,1,Hong Kong,COMPLETED,G,100,2025-02-01,2025-04-30,2025-02-04,2025-04-26,2025-05-01,2025-05-01,Go-live achieved without issues,None,2024-12-10T10:00:00.000Z,system,2025-05-01T10:00:00.000Z,system,4,CUTOVER
+200003,2,Taiwan,IN_PROGRESS,A,70,2025-04-01,2025-07-31,2025-04-05,,2025-08-05,,UAT data validation ongoing,Legacy data reconciliation,2025-02-15T10:00:00.000Z,system,2025-06-20T10:00:00.000Z,system,5,DRESS_REHEARSAL
+200004,2,Japan,IN_PROGRESS,A,60,2025-05-01,2025-08-31,2025-05-06,,2025-09-05,,Interface testing in progress,Vendor integration delays,2025-03-01T10:00:00.000Z,system,2025-06-22T10:00:00.000Z,system,4,1
+200005,3,Vietnam,ON_HOLD,R,45,2025-03-01,2025-06-30,2025-03-04,,2025-07-05,,Program paused after SIT,Infrastructure upgrade pending,2025-01-20T10:00:00.000Z,system,2025-05-15T10:00:00.000Z,system,3,DRESS_REHEARSAL
+200006,3,Combodia,IN_PROGRESS,G,80,2025-04-15,2025-07-15,2025-04-18,,2025-07-20,,UAT execution nearing completion,None,2025-02-10T10:00:00.000Z,system,2025-06-18T10:00:00.000Z,system,14,DRESS_REHEARSAL
+200007,4,Laos,YET_TO_START,G,0,2025-09-01,2025-12-15,,,2026-01-10,,Project kickoff pending,Resources onboarding,2025-06-01T10:00:00.000Z,system,2025-06-01T10:00:00.000Z,system,2,0
+200008,4,Myanmar,ON_HOLD,R,30,2025-02-01,2025-05-31,2025-02-06,,2025-06-05,,Regulatory approval not received,Compliance sign-off pending,2025-01-05T10:00:00.000Z,system,2025-04-30T10:00:00.000Z,system,14,DRESS_REHEARSAL
+200009,5,Malaysia,IN_PROGRESS,G,85,2025-03-15,2025-06-15,2025-03-18,,2025-06-20,,Final migration cycles running,None,2025-02-01T10:00:00.000Z,system,2025-06-10T10:00:00.000Z,system,5,DRESS_REHEARSAL
+200010,5,Thailand,COMPLETED,G,100,2025-01-15,2025-03-31,2025-01-17,2025-03-28,2025-04-01,2025-04-01,Smooth go-live execution,None,2024-12-15T10:00:00.000Z,system,2025-04-01T08:45:00.000Z,system,5,CUTOVER
+200011,6,Indonesia,IN_PROGRESS,A,55,2025-06-01,2025-09-30,2025-06-04,,2025-10-05,,Core modules deployment ongoing,Performance tuning required,2025-04-01T10:00:00.000Z,system,2025-06-25T10:00:00.000Z,system,4,2

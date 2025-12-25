@@ -32,4 +32,10 @@ entity Rollouts {
         createdBy         : String(12);
         lastModifiedAt    : Timestamp;
         lastModifiedBy    : String(12);
+        totalMocks        : Integer;
+        currentmock       : String(100);
+}
+
+entity RolloutStatus {
+  key Status : String(20);
 }
