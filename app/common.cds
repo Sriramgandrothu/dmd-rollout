@@ -1,27 +1,26 @@
-using {MigrationService} from '../srv/migration-service';
-// using { sap.common } from '@sap/cds/common';
+using { MigrationService } from '../srv/migration-service';
 
+////////////////////////////////////////////////////////////
+// ===================== ROLLOUTS =========================
+////////////////////////////////////////////////////////////
+
+// Rollout Header
 annotate MigrationService.RolloutOverview with @UI.HeaderInfo: {
   TypeName      : 'Rollout',
   TypeNamePlural: 'Rollouts',
-  Title         : {Value: RolloutName},
-  Description   : {Value: Status}
+  Title         : { Value: RolloutName },
+  Description   : { Value: Status }
 };
 
-////////////////////////////////////////////////////////////////////////////
-//
-// FORCE HEADER VISIBILITY (IMPORTANT)
-//
-annotate MigrationService.RolloutOverview with @UI.PresentationVariant: {Visualizations: ['@UI.LineItem']};
+// Force Header Visibility
+annotate MigrationService.RolloutOverview with @UI.PresentationVariant: {
+  Visualizations: ['@UI.LineItem']
+};
 
-////////////////////////////////////////////////////////////////////////////
-//
-// Rollout List
-//
+// Rollout List Report
 annotate MigrationService.RolloutOverview with @(
   Common.SemanticKey: [RolloutName],
-  UI                : {
-
+  UI: {
     SelectionFields: [
       RolloutName,
       Status,
@@ -66,102 +65,120 @@ annotate MigrationService.RolloutOverview with @(
   }
 );
 
-////////////////////////////////////////////////////////////////////////////
-//
-// Filter behavior
-//
+// Rollout Filters
 annotate MigrationService.RolloutOverview with {
 
-  // Rollout Name → Dropdown (Value Help)
   RolloutName
-  @Common.ValueList                                  : {
+  @Common.ValueList: {
     CollectionPath: 'RolloutOverview',
-    Parameters    : [{
-      $Type            : 'Common.ValueListParameterInOut',
+    Parameters: [{
+      $Type: 'Common.ValueListParameterInOut',
       LocalDataProperty: RolloutName,
       ValueListProperty: 'RolloutName'
     }]
   }
-  @Common.Placeholder                                : 'Select Rollout';
+  @Common.Placeholder: 'Select Rollout';
 
-  // Status → Enum dropdown
-  // Status → Value Help Dropdown
   Status
-  @Common.ValueList                                  : {
+  @Common.ValueList: {
     CollectionPath: 'RolloutStatus',
-    Parameters    : [{
-      $Type            : 'Common.ValueListParameterInOut',
+    Parameters: [{
+      $Type: 'Common.ValueListParameterInOut',
       LocalDataProperty: Status,
       ValueListProperty: 'Status'
     }]
   }
   @Capabilities.FilterRestrictions.AllowedExpressions: ['MultiValue']
-  @Common.Placeholder                                : 'Select Status';
+  @Common.Placeholder: 'Select Status';
 
-
-  // CurrentMocks → Plain input (NO F4 HELP)
   CurrentMocks
   @Capabilities.FilterRestrictions.AllowedExpressions: ['SingleValue']
-  @Common.Placeholder                                : 'Search by Current Mock';
+  @Common.Placeholder: 'Search by Current Mock';
 };
 
-////////////////////////////////////////////////////////////////////////////
-//
-// Disable Global Search
-//
-annotate MigrationService.RolloutOverview with @Capabilities.SearchRestrictions: {Searchable: false};
+// Disable Global Search for Rollouts
+annotate MigrationService.RolloutOverview with @Capabilities.SearchRestrictions: { Searchable: false };
 
-////////////////////////////////////////////////////////////////////////////
-//
-// Object Page
-//
-// annotate MigrationService.RolloutOverview with @(UI : {
+// Object Page Facets (ONLY MOCKS)
+annotate MigrationService.RolloutOverview with @UI.Facets: [
+  {
+    $Type  : 'UI.ReferenceFacet',
+    Label  : 'Mocks',
+    Target : 'mocks/@UI.LineItem'
+  }
+];
 
-//   HeaderInfo : {
-//     TypeName       : 'Rollout',
-//     TypeNamePlural : 'Rollouts',
-//     Title          : { Value: RolloutName },
-//     Description    : { Value: Status }
-//   },
+////////////////////////////////////////////////////////////
+// ===================== MOCKS ===========================
+////////////////////////////////////////////////////////////
 
-//   Facets : [
-//     {
-//       $Type  : 'UI.ReferenceFacet',
-//       Label  : 'Rollout Details',
-//       Target : '@UI.FieldGroup#Details'
-//     },
-//     {
-//       $Type  : 'UI.ReferenceFacet',
-//       Label  : 'Progress',
-//       Target : '@UI.FieldGroup#Progress'
-//     },
-//     {
-//       $Type  : 'UI.ReferenceFacet',
-//       Label  : 'Timeline',
-//       Target : '@UI.FieldGroup#Timeline'
-//     }
-//   ],
+// Disable Global Search for Mocks
+annotate MigrationService.Mocks with @Capabilities.SearchRestrictions: { Searchable: false };
 
-//   FieldGroup #Details : {
-//     Data : [
-//       { Value: RolloutName },
-//       { Value: Status },
-//       { Value: Reason }
-//     ]
-//   },
+// Mocks Table (Columns as requested)
+annotate MigrationService.Mocks with @UI.LineItem: [
+  { Value: name,              Label: 'Mock' },
+  { Value: status,            Label: 'Status' },
+  { Value: startDate,         Label: 'Start Date' },
+  { Value: endDate,           Label: 'End Date' },
+  { Value: completionPercent, Label: 'Loaded %' },
+  { Value: lastModifiedAt,    Label: 'Time' }
+];
 
-//   FieldGroup #Progress : {
-//     Data : [
-//       { Value: TotalMocks },
-//       { Value: CurrentMocks }
-//     ]
-//   },
+// Enable Column Filters for Mocks Table
+annotate MigrationService.Mocks with {
 
-//   FieldGroup #Timeline : {
-//     Data : [
-//       { Value: PlannedDate },
-//       { Value: ActualDate },
-//       { Value: TimeStamp }
-//     ]
-//   }
-// });
+  // Mock name (text filter)
+  name
+  @Capabilities.FilterRestrictions.AllowedExpressions: ['SingleValue']
+  @Common.Placeholder: 'Filter by Mock';
+
+  // Status (dropdown)
+  status
+  @Capabilities.FilterRestrictions.AllowedExpressions: ['MultiValue']
+  @Common.ValueList: {
+    CollectionPath: 'RolloutStatus',
+    Parameters: [{
+      $Type: 'Common.ValueListParameterInOut',
+      LocalDataProperty: status,
+      ValueListProperty: 'Status'
+    }]
+  }
+  @Common.Placeholder: 'Select Status';
+};
+
+// Mock Object Page Header
+annotate MigrationService.Mocks with @UI.HeaderInfo: {
+  TypeName      : 'Mock',
+  TypeNamePlural: 'Mocks',
+  Title         : { Value: name },
+  Description   : { Value: status }
+};
+
+// Hide Technical ID
+annotate MigrationService.Mocks with {
+  ID @UI.Hidden: true;
+};
+
+// Mock Object Page – Details
+annotate MigrationService.Mocks with @UI.FieldGroup #Details: {
+  Data: [
+    { Value: name },
+    { Value: status },
+    { Value: completionPercent },
+    { Value: startDate },
+    { Value: endDate },
+    { Value: actualStartDate },
+    { Value: actualEndDate },
+    { Value: lastModifiedAt }
+  ]
+};
+
+// Mock Object Page Facet
+annotate MigrationService.Mocks with @UI.Facets: [
+  {
+    $Type  : 'UI.ReferenceFacet',
+    Label  : 'Mock Details',
+    Target : '@UI.FieldGroup#Details'
+  }
+];

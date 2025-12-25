@@ -34,6 +34,8 @@ entity Rollouts {
         lastModifiedBy    : String(12);
         totalMocks        : Integer;
         currentmock       : String(100);
+        mocks             : Composition of many Mocks
+                                on mocks.rolloutID = $self;
 }
 
 entity Mocks {
