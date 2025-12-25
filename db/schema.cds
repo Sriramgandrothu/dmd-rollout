@@ -36,6 +36,25 @@ entity Rollouts {
         currentmock       : String(100);
 }
 
+entity Mocks {
+    key ID                : Integer;
+        rolloutID         : Association to Rollouts;
+        name              : String(10);
+        owner             : String(12);
+        startDate         : Date;
+        endDate           : Date;
+        actualStartDate   : Date;
+        actualEndDate     : Date;
+        status            : WaveStatus;
+        rag               : RAG;
+        completionPercent : Integer;
+        createdAt         : Timestamp;
+        createdBy         : String(12);
+        lastModifiedAt    : Timestamp;
+        lastModifiedBy    : String(12);
+}
+
+
 entity RolloutStatus {
-  key Status : String(20);
+    key Status : String(20);
 }
